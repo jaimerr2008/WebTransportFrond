@@ -1,0 +1,43 @@
+<!-- BEGIN login -->
+<div class="login login-v1">
+    <!-- BEGIN login-container -->
+    <div class="login-container">
+        <!-- BEGIN login-header -->
+        <div class="login-header">
+            <div class="brand">
+                <div class="d-flex align-items-center">
+                    <b>WebTransport</b>
+                </div>
+                <small>Inicio de Sesion</small>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-cloud"></i>
+            </div>
+        </div>
+        <!-- END login-header -->
+
+        <!-- BEGIN login-body -->
+        <div class="login-body">
+            <!-- BEGIN login-content -->
+            <div class="login-content fs-13px">
+                <form  >
+                    <div class="form-floating mb-20px">
+                        <input type="text" class="form-control fs-13px h-45px" [(ngModel)]="user.user" name="user" id="emailAddress" placeholder="Email Address" />
+                        <label for="emailAddress" class="d-flex align-items-center py-0">Usuarios</label>
+                    </div>
+                    <div class="form-floating mb-20px">
+                        <input type="password" class="form-control fs-13px h-45px" [(ngModel)]="user.password"(keydown.enter)='logear()' name="password" id="password" placeholder="Password" />
+                        <label for="password" class="d-flex align-items-center py-0">Contraseña</label>
+                    </div>
+
+                    <div class="login-buttons">
+                        <button type="button" (click)='logear()' class="btn-success btn h-45px @@if(context.theme != 'material' && context.theme != 'google'){btn-success}@@if(context.theme == 'material'){btn-cyan}@@if(context.theme == 'google'){btn-primary} d-block w-100 btn-lg">Iniciar</button>
+                    </div>
+                </form>
+            </div>
+            <!-- END login-content -->
+        </div>
+        <!-- END login-body -->
+    </div>
+    <!-- END login-container -->
+</div>
