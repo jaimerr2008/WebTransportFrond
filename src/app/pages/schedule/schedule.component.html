@@ -1,0 +1,126 @@
+<!-- BEGIN breadcrumb -->
+
+<!-- END breadcrumb -->
+<!-- BEGIN page-header -->
+
+<!-- END page-header -->
+
+<div title="Schedule" class="ng-container">
+    <div class="row">
+        <div class="col-lg-4">
+            <input class="form-control" placeholder="Buscar..." (keyup)="updateFilter($event)" />
+        </div>
+        <div class="col-lg-8 text-center">
+            <button type="button" class="btn btn-primary mb-1 " (click)="openNuevo(modalDialog)">Nueva Programacion</button>
+
+        </div>
+
+    </div>
+    <table class="footable table table-stripped toggle-arrow-tiny">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>route_id</th>
+                <th>Week_num</th>
+                <th>From</th>              
+                <th>To </th>            
+                <th>Active</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            <tr *ngFor="let shedule of shedulesM">               
+               <th>{{shedule.id}}</th>
+                <th>{{shedule.route_id}}</th>
+                <th>{{shedule.week_num}}</th>              
+                <th>{{shedule.from }}</th>
+                <th>{{shedule.to}}</th>                         
+                <td>
+                    <i *ngIf="shedule.active == true" class="fa fa-check text-navy"></i>
+                    <i *ngIf="shedule.active == false" class="fa fa-minus-circle text-danger"></i>
+                </td>
+                <td>
+                    <button title="Editar " class="btn btn-primary btn-sm" type="button" (click)="open(modalDialog,shedule.id)">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                </td>
+                <td>
+                    <button title="Eliminar " class="btn btn-danger btn-sm" type="button" (click)="deleteSchedule(shedule)">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <!-- <ul class="pagination float-right"></ul>-->
+                    <!-- <pagination-controls previousLabel='Anterior' nextLabel='Siguiente' class="my-pagination   float-right" (pageChange)="p = $event"></pagination-controls> -->
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+    <!-- END table-responsive -->
+
+    <!-- #modal-dialog -->
+    <ng-template #modalDialog let-c="close" let-d="dismiss">
+        <!--<panel title="Maestro de linea" footerClass="pb-0 pt-20px"> modal-header  #20252a-->
+        <div class="modal-header modal-header_aux">
+            <h5 class="modal-title">Programacion</h5>
+            <a class="btn btn-danger btn-icon btn-circle btn-sm" (click)="d('Cross click')"><i class="fa fa-times"></i></a>
+        </div>
+        <div class="modal-body">
+            <div class="col-xl-12">
+                <div>
+                    <form>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">Id :</label>
+                            <div class="col-md-8">
+                                <input disabled type="text" name="id" class="form-control mb-5px" placeholder="Codigo" [(ngModel)]="sheduleM.id" />
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" [(ngModel)]="sheduleM.active" [ngModelOptions]="{standalone: true}" checked>
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">Ruta :</label>
+                            <div class="col-md-10">
+                                <select  class="form-select" [(ngModel)]="sheduleM.route_id" name="route_id" id="">
+                                    <option *ngFor="let ruta of routesM "  [value]="ruta.id" >{{ruta.description}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">week_num :</label>
+                            <div class="col-md-10">
+                                <input type="text" name="city" class="form-control mb-5px" placeholder="week_num" [(ngModel)]="sheduleM.week_num"  /> 
+                            </div>
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">from :</label>
+                            <div class="col-md-10">
+                                <input type="datetime-local" name="city" class="form-control mb-5px" placeholder="from" [(ngModel)]="sheduleM.from"  />
+                            </div>
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">to :</label>
+                            <div class="col-md-10">
+                                <input type="datetime-local" name="city" class="form-control mb-5px" placeholder="to" [(ngModel)]="sheduleM.to"  />
+                            </div>
+                        </div>             
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary  mb-1" (click)="guardar()">Guardar</button>
+        </div>      
+    </ng-template>
+</div>
