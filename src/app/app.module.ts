@@ -48,6 +48,7 @@ import { loginComponents } from './pages/login/login.components';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { DriverComponent } from './pages/driver/driver.component';
 import { vehicleComponent } from './pages/vehicles/vehicles.component';
+import { routesComponent } from './pages/routes/routes.component';
 
  
  
@@ -61,7 +62,7 @@ import { vehicleComponent } from './pages/vehicles/vehicles.component';
     TopMenuComponent,
     PanelComponent,
     FloatSubMenuComponent,
-    ThemePanelComponent,loginComponents,DriverComponent,vehicleComponent],
+    ThemePanelComponent,loginComponents,DriverComponent,vehicleComponent,routesComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
