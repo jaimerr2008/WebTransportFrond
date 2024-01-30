@@ -1,0 +1,152 @@
+<!-- BEGIN breadcrumb -->
+
+<!-- END breadcrumb -->
+<!-- BEGIN page-header -->
+
+<!-- END page-header -->
+
+<div title="Drivers" class="ng-container">
+    <div class="row">
+        <div class="col-lg-4">
+            <input class="form-control" placeholder="Buscar..." (keyup)="updateFilter($event)" />
+        </div>
+        <div class="col-lg-8 text-center">
+            <button type="button" class="btn btn-primary mb-1 " (click)="openNuevo(modalDialog)">Nuevo Conductor</button>
+
+        </div>
+
+    </div>
+    <table class="footable table table-stripped toggle-arrow-tiny">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>first_name</th>
+                <th>last_name</th>              
+                <th>address </th>
+                <th>city</th>
+                <th>dob</th>                
+                <th>phone</th>
+                <th>ssn</th>
+                <th>zip</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            <tr *ngFor="let i=index;let driver of driversM ">
+                <th scope="row"> {{i+1}}</th>
+               <th>{{driver.id}}</th>
+                <th>{{driver.first_name}}</th>
+                <th>{{driver.last_name}}</th>              
+                <th>{{driver.address }}</th>
+                <th>{{driver.city}}</th>
+                <th>{{driver.dob}}</th>                
+                <th>{{driver.phone}}</th>
+                <th>{{driver.ssn}}</th>
+                <th>{{driver.zip}}</th>            
+                <td>
+                    <i *ngIf="driver.active == true" class="fa fa-check text-navy"></i>
+                    <i *ngIf="driver.active == false" class="fa fa-minus-circle text-danger"></i>
+                </td>
+                <td>
+                    <button title="Editar " class="btn btn-primary btn-sm" type="button" (click)="open(modalDialog,driver.id)">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                </td>
+                <td>
+                    <button title="Eliminar " class="btn btn-danger btn-sm" type="button" (click)="deleteDriver(driver)">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <!-- <ul class="pagination float-right"></ul>-->
+                    <!-- <pagination-controls previousLabel='Anterior' nextLabel='Siguiente' class="my-pagination   float-right" (pageChange)="p = $event"></pagination-controls> -->
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+    <!-- END table-responsive -->
+
+    <!-- #modal-dialog -->
+    <ng-template #modalDialog let-c="close" let-d="dismiss">
+        <!--<panel title="Maestro de linea" footerClass="pb-0 pt-20px"> modal-header  #20252a-->
+        <div class="modal-header modal-header_aux">
+            <h5 class="modal-title">Driver</h5>
+            <a class="btn btn-danger btn-icon btn-circle btn-sm" (click)="d('Cross click')"><i class="fa fa-times"></i></a>
+        </div>
+        <div class="modal-body">
+            <div class="col-xl-12">
+                <div>
+                    <form>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">Id :</label>
+                            <div class="col-md-8">
+                                <input disabled type="text" name="id" class="form-control mb-5px" placeholder="Codigo" [(ngModel)]="DriverM.id" />
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" [(ngModel)]="DriverM.active" [ngModelOptions]="{standalone: true}" checked>
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">Nombre :</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-5px" placeholder="Nombre" [(ngModel)]="DriverM.first_name" id="first_name" name="first_name" />
+                            </div>
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">Apellido :</label>
+                            <div class="col-md-10">
+                                <input type="text" name="last_name" class="form-control mb-5px" placeholder="Apellido" [(ngModel)]="DriverM.last_name"  />
+                            </div>
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">Ciudad :</label>
+                            <div class="col-md-10">
+                                <input type="text" name="city" class="form-control mb-5px" placeholder="city" [(ngModel)]="DriverM.city"  />
+                            </div>
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">dob :</label>
+                            <div class="col-md-10">
+                                <input type="text" name="dob" class="form-control mb-5px" placeholder="dob" [(ngModel)]="DriverM.dob"  />
+                            </div>
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">Telefono :</label>
+                            <div class="col-md-10">
+                                <input type="text" name="phone" class="form-control mb-5px" placeholder="phone" [(ngModel)]="DriverM.phone"  />
+                            </div>
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">Num Seguro social :</label>
+                            <div class="col-md-10">
+                                <input type="text" name="ssn" class="form-control mb-5px" placeholder="ssn" [(ngModel)]="DriverM.ssn"  />
+                            </div>
+                        </div>
+                        <div class="row mb-15px">
+                            <label class="form-label col-form-label col-md-2">codigo postal :</label>
+                            <div class="col-md-10">
+                                <input type="text" name="zip" class="form-control mb-5px" placeholder="zip" [(ngModel)]="DriverM.zip"  />
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary  mb-1" (click)="guardar()">Guardar</button>
+        </div>      
+    </ng-template>
+</div>

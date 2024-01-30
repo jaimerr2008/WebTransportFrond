@@ -45,51 +45,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 // Pages
 
 import { loginComponents } from './pages/login/login.components';
-/*import { EmpleadoComponent } from './pages/empleado/empleado.component';
-import { GridEmpleadoComponent } from './pages/grid-empleado/grid-empleado.component';
-import { ParametroNominaComponent } from './pages/parametro-nomina/parametro-nomina.component';
-import { BancoComponent } from './pages/banco/banco.component';
-import { CajaCompensacionComponent } from './pages/caja-compensacion/caja-compensacion.component';
-import { FondoPensionComponent } from './pages/fondo-pension/fondo-pension.component';
-import { EpsComponent } from './pages/eps/eps.component';
-import { ArlComponent } from './pages/arl/arl.component';
-import { EmpresaComponent } from './pages/empresa/empresa.component';
-import { AreaComponent } from './pages/area/area.component';
-import { ContratoComponent } from './pages/contrato/contrato.component';
-import { MaestroDescuentoComponent } from './pages/maestro-descuento/maestro-descuento.component';
-import { MaestroDevengoComponent } from './pages/maestro-devengo/maestro-devengo.component';
-import { AplicarDevengoComponent } from './pages/aplicar-devengo/aplicar-devengo.component';
-import { AplicarDescuentoComponent } from './pages/aplicar-descuento/aplicar-descuento.component';
-import { GridEpsComponent } from './pages/grid-eps/grid-eps.component';
-import { GridBancoComponent } from './pages/grid-banco/grid-banco.component';
-import { GridCajaCompComponent } from './pages/grid-caja-comp/grid-caja-comp.component';
-import { GridFondoPensionComponent } from './pages/grid-fondo-pension/grid-fondo-pension.component';
-import { GridArlComponent } from './pages/grid-arl/grid-arl.component';
-import { GridContratoComponent } from './pages/grid-contrato/grid-contrato.component';
-import { GridEmpresaComponent } from './pages/grid-empresa/grid-empresa.component';
-import { GridMDescuentoComponent } from './pages/grid-m-descuento/grid-m-descuento.component';
-import { GridMDevendoComponent } from './pages/grid-m-devendo/grid-m-devendo.component';
-import { GridADevendoComponent } from './pages/grid-a-devendo/grid-a-devendo.component';
-import { GridADescuentoComponent } from './pages/grid-a-descuento/grid-a-descuento.component';
-import { NovedadGestionHumanaComponent } from './pages/novedad-gestion-humana/novedad-gestion-humana.component';
-import { GridGestionHumanaComponent } from './pages/grid-gestion-humana/grid-gestion-humana.component';
-import { UsuarioService } from './services/usuario.service';
-import { LineasComponent } from './pages/lineas/lineas.component';
-import { GridAreaComponent } from './pages/grid-area/grid-area.component';
-import { SublineasComponent } from './pages/sublineas/sublineas.component';
-import { ProvedoresComponent } from './pages/provedores/provedores.component';
-import { UnidadMedidaComponent } from './pages/unidad-medida/unidad-medida.component';
-import { ProductosComponent } from './pages/productos/productos.component';
-import { MFormaPagoEComponent } from './pages/m-forma-pago-e/m-forma-pago-e.component';
-import { MEgresoComponent } from './pages/m-egreso/m-egreso.component';
-import { RequisicionComponent } from './pages/requisicion/requisicion.component';
-import { CajaTesoreriaComponent } from './pages/caja-tesoreria/caja-tesoreria.component';
-import { AprovisionamientoCajaTesoreriaComponent } from './pages/aprovisionamiento-caja-tesoreria/aprovisionamiento-caja-tesoreria.component';
-import { EgresoComponent } from './pages/egreso/egreso.component';
-import { RevisionRequisicionComponent } from './pages/revision-requisicion/revision-requisicion.component';
-import { BodegasComponent } from './pages/bodegas/bodegas.component';
-import { PresentacionesComponent } from './pages/presentaciones/presentaciones.component';
-import { ListaPreciosComponent } from './pages/lista-precios/lista-precios.component';*/
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { DriverComponent } from './pages/driver/driver.component';
+
  
  
 
@@ -102,52 +60,7 @@ import { ListaPreciosComponent } from './pages/lista-precios/lista-precios.compo
     TopMenuComponent,
     PanelComponent,
     FloatSubMenuComponent,
-    ThemePanelComponent,loginComponents/*
-    HomePage,loginComponents,
-    EmpleadoComponent,
-    GridEmpleadoComponent,
-    ParametroNominaComponent,
-    BancoComponent,
-    CajaCompensacionComponent,
-    FondoPensionComponent,
-    EpsComponent,
-    ArlComponent,
-    EmpresaComponent,
-    AreaComponent,
-    ContratoComponent,
-    MaestroDescuentoComponent,
-    MaestroDevengoComponent,
-    AplicarDevengoComponent,
-    AplicarDescuentoComponent,
-    GridEpsComponent,
-    GridBancoComponent,
-    GridCajaCompComponent,
-    GridFondoPensionComponent,
-    GridArlComponent,
-    GridContratoComponent,
-    GridEmpresaComponent,
-    GridMDescuentoComponent,
-    GridMDevendoComponent,
-    GridADevendoComponent,
-    GridADescuentoComponent,
-    NovedadGestionHumanaComponent,
-    GridGestionHumanaComponent,
-    LineasComponent,
-    GridAreaComponent,
-    SublineasComponent,
-    ProvedoresComponent,
-    UnidadMedidaComponent,
-    ProductosComponent,
-    MFormaPagoEComponent,
-    MEgresoComponent,
-    RequisicionComponent,
-    CajaTesoreriaComponent,
-    AprovisionamientoCajaTesoreriaComponent,
-    EgresoComponent,
-    RevisionRequisicionComponent,
-    BodegasComponent,
-    PresentacionesComponent,
-  ListaPreciosComponent*/],
+    ThemePanelComponent,loginComponents,DriverComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -162,7 +75,7 @@ import { ListaPreciosComponent } from './pages/lista-precios/lista-precios.compo
     LoadingBarRouterModule,
     NgxMasonryModule,
     CountdownModule,
-    
+    NgxDatatableModule,
     SweetAlert2Module.forRoot(),
    
     FormsModule,
@@ -198,7 +111,7 @@ export class AppModule {
   constructor(private router: Router, private titleService: Title, private route: ActivatedRoute) {
     router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
-        var title = 'InvsystemCloud| ' + this.route.snapshot.firstChild.data['title'];
+        var title = 'WebTransport| ' + this.route.snapshot.firstChild.data['title'];
         this.titleService.setTitle(title);
       }
     });
