@@ -12,3 +12,6 @@ se debe hacer un npm install para bajar las dependencia  del node_modules
 
 
 
+Usuario demo
+admin
+123456
