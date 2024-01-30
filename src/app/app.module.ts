@@ -47,6 +47,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 import { loginComponents } from './pages/login/login.components';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { DriverComponent } from './pages/driver/driver.component';
+import { vehicleComponent } from './pages/vehicles/vehicles.component';
 
  
  
@@ -60,7 +61,7 @@ import { DriverComponent } from './pages/driver/driver.component';
     TopMenuComponent,
     PanelComponent,
     FloatSubMenuComponent,
-    ThemePanelComponent,loginComponents,DriverComponent],
+    ThemePanelComponent,loginComponents,DriverComponent,vehicleComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
