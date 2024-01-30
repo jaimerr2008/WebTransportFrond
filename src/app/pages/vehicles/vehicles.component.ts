@@ -2,25 +2,25 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatatableComponent, ColumnMode } from '@swimlane/ngx-datatable';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { DriverService } from '../../services/driver.service';
-import { DriverModel } from '../../models/driver.models';
-import { HttpResponse } from '@angular/common/http';
- 
+import { VehicleModel } from '../../models/vehicles.models';
+import { VehicleService } from '../../services/vehicle.service';
+
+
 
 @Component({
-  selector: 'app-driver',
-  templateUrl: './driver.component.html',
+  selector: 'app-vehicle',
+  templateUrl: './vehicles.component.html',
  
   
 })
-export class DriverComponent implements OnInit {
+export class vehicleComponent implements OnInit {
 
 
   token
   p
   closeResult: string;
-  driversM: DriverModel[] = [];
-  DriverM: DriverModel;
+  vehiclesM: VehicleModel[] = [];
+  vehicleM: VehicleModel;
   estado
   empresa_id
   rowIndexGlobal;
@@ -37,16 +37,16 @@ export class DriverComponent implements OnInit {
 
   ColumnMode = ColumnMode;
 
-  constructor(private _drivers: DriverService, private modalService: NgbModal) { 
+  constructor(private _vehicles: VehicleService, private modalService: NgbModal) { 
    let  token = JSON.parse(localStorage.getItem('token'));
     this.empresa_id=token.empresa_id
-    this.DriverM = new DriverModel(0,'','','','','','','','',true);
+    this.vehicleM =new VehicleModel(0,'',0,'',0,true);
     this.pageNumber=0;
     this.limit=25
     this.token= JSON.parse(localStorage.getItem('token'));
     this.token=this.token.token
     this.totalElements=0;
-    this.getdrivers(this.token);
+    this.getvehicles(this.token);
    
   }
    
@@ -56,7 +56,7 @@ export class DriverComponent implements OnInit {
   
   setPage(pageInfo) {
     console.log(pageInfo)
-    this.getdrivers(this.token);
+    this.getvehicles(this.token);
     //this.pageNumber= pageInfo.
   }
   
@@ -82,8 +82,8 @@ export class DriverComponent implements OnInit {
 
   openNuevo(content) {
     //console.log(event);   
-    this.DriverM = new DriverModel(0,'','','','','','','','',true);
-console.log(this.DriverM)
+    this.vehicleM = new VehicleModel(0,'',0,'',0,true);
+console.log(this.vehicleM)
     this.Accion = 'Nuevo';
     
     this.modalService.open(content,{ size: 'lg', backdrop: 'static' }).result.then((result) => {
@@ -97,12 +97,12 @@ console.log(this.DriverM)
   open(content,  id) {
     //console.log(event);
  
- this.getdriver(id,this.token)
+ this.getvehicle(id,this.token)
 
     this.Accion = 'Actualizar';
 
      
-      this.estado = this.DriverM.active;
+      this.estado = this.vehicleM.active;
     
     
     this.modalService.open(content,{ size: 'lg', backdrop: 'static' }).result.then((result) => {
@@ -118,19 +118,19 @@ console.log(this.DriverM)
         let titleMsm;
         let textMsm;
    
-if (this.DriverM.id==0){
-  this._drivers.register(this.DriverM,this.token).subscribe(
+if (this.vehicleM.id==0){
+  this._vehicles.register(this.vehicleM,this.token).subscribe(
     (response) => {
       if (response.id!=undefined) {              
               typeMsm =  "success";                        
-                 titleMsm = "El Conductor se registro correctamente.";             
-              this.getdrivers(this.token);
+                 titleMsm = "El Vehiculo se registro correctamente.";             
+              this.getvehicles(this.token);
               textMsm = "";
               // para modal(cuando la transaccion es ok mando a recargar la grilla)
               this.modalService.dismissAll();
       } else {       
         typeMsm =  'error';
-        titleMsm = 'Error al crear la Conductor.';
+        titleMsm = 'Error al crear la Vehiculo.';
         textMsm = "success"
       }
       Swal.fire({
@@ -148,19 +148,19 @@ if (this.DriverM.id==0){
 
   if ( this.Accion == 'Actualizar'){
     console.log('Actualizo!!!');
-    this.rows[this.rowIndexGlobal] = this.DriverM;
+    this.rows[this.rowIndexGlobal] = this.vehicleM;
   }
   else{
-    //this.rows[this.driversM.length] = this.DriverM;
+    //this.rows[this.vehiclesM.length] = this.vehicleM;
     console.log('Inserto!!!');
-    this.rows.push(this.DriverM);
+    this.rows.push(this.vehicleM);
     this.rows=[...this.rows]
   }
      
     },
     error => {
       typeMsm =  'error';
-      titleMsm = 'Error al crear la Conductor.';
+      titleMsm = 'Error al crear la Vehiculo.';
        textMsm = "Error verifique sus datos";
       Swal.fire({
         customClass: {
@@ -177,25 +177,25 @@ if (this.DriverM.id==0){
   );
 }
 else{//update
-    this._drivers.update(this.DriverM,this.token).subscribe(
+    this._vehicles.update(this.vehicleM,this.token).subscribe(
       (response) => {     
         console.log(response)
         if (response==null) {
                 
                 typeMsm =  "success";
               
-                   titleMsm = "El Conductor se actualizo correctamente.";          
+                   titleMsm = "El Vehiculo se actualizo correctamente.";          
                   
               
               
-                this.getdrivers(this.token);
+                this.getvehicles(this.token);
                 textMsm = "";
                 // para modal(cuando la transaccion es ok mando a recargar la grilla)
                 this.modalService.dismissAll();
         } else {
          
           typeMsm =  'error';
-          titleMsm = 'Error al crear la Conductor.';
+          titleMsm = 'Error al crear la Vehiculo.';
           textMsm = "success"
         }
  
@@ -214,19 +214,19 @@ else{//update
 
     if ( this.Accion == 'Actualizar'){
       console.log('Actualizo!!!');
-      this.rows[this.rowIndexGlobal] = this.DriverM;
+      this.rows[this.rowIndexGlobal] = this.vehicleM;
     }
     else{
-      //this.rows[this.driversM.length] = this.DriverM;
+      //this.rows[this.vehiclesM.length] = this.vehicleM;
       console.log('Inserto!!!');
-      this.rows.push(this.DriverM);
+      this.rows.push(this.vehicleM);
       this.rows=[...this.rows]
     }
        
       },
       error => {
         typeMsm =  'error';
-        titleMsm = 'Error al crear la Conductor.';
+        titleMsm = 'Error al crear el vehiculo.';
          textMsm = "Error verifique sus datos";
         Swal.fire({
           customClass: {
@@ -256,12 +256,12 @@ else{//update
       return  `with: ${reason}`;
     }
   }
-  getdriver(id,token) {
+  getvehicle(id,token) {
     this.loading = true;
-    this._drivers.getDriver(id,token).subscribe({
+    this._vehicles.getVehicle(id,token).subscribe({
       next: response => {
         if (response!= undefined) {
-          this.DriverM  = response;         
+          this.vehicleM  = response;         
           this.loading = false;    
         }
       },
@@ -272,19 +272,19 @@ else{//update
     });
     }
 
-  getdrivers(token) {
+  getvehicles(token) {
     this.loading = true;
-    this._drivers.getDrivers(token).subscribe({
+    this._vehicles.getVehicles(token).subscribe({
       next: response => {
         if (response!= undefined) {
-          this.driversM  = response;     
-          this.rows =  this.driversM; 
-          this.temp =  this.driversM;
+          this.vehiclesM  = response;     
+          this.rows =  this.vehiclesM; 
+          this.temp =  this.vehiclesM;
 
           this.totalElements= response.totalElements;
           
           this.loading = false;
-         console.log(this.driversM);
+         console.log(this.vehiclesM);
         }
       },
       error: err => {
@@ -294,7 +294,7 @@ else{//update
     });
     }
 
-    deleteDriver(driver) {
+    deletevehicle(vehicle) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -306,11 +306,11 @@ else{//update
       }).then((result) => {
         if (result.isConfirmed) {
           this.loading = true;
-      this._drivers.delete(driver,this.token).subscribe({
+      this._vehicles.delete(vehicle,this.token).subscribe({
         next: response => {
           if (response==null) {            
             this.loading = false;
-            this.getdrivers(this.token);
+            this.getvehicles(this.token);
         
           }
         },
